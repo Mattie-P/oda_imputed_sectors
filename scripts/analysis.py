@@ -240,27 +240,60 @@ def get_bilateral_disbursements_by_sector(
 if __name__ == "__main__":
 
     # Get the spending shares for multilateral agencies by sector
-    shares = get_multilateral_spending_shares(
-        start_year=2020,
+    shares_broad = get_multilateral_spending_shares(
+        start_year=2015,
         end_year=2022,
         group_by="broad_sector",
         by_recipient=False,
     )
 
+    shares_purpose = get_multilateral_spending_shares(
+        start_year=2015,
+        end_year=2022,
+        group_by="purpose",
+        by_recipient=False,
+    )
+
     # Get the spending values for imputed multilateral disbursements by sector
-    imputed_spending = get_imputed_multilateral_disbursements_by_sector(
-        start_year=2020,
+    imputed_spending_broad = get_imputed_multilateral_disbursements_by_sector(
+        start_year=2015,
         end_year=2022,
         prices="constant",
-        base_year=2022,
+        base_year=2021,
         group_by="broad_sector",
     )
 
-    # Get the spending values for bilateral disbursements by sector
-    bilateral_spending = get_bilateral_disbursements_by_sector(
-        start_year=2020,
+    imputed_spending_purpose = get_imputed_multilateral_disbursements_by_sector(
+        start_year=2015,
         end_year=2022,
         prices="constant",
-        base_year=2022,
+        base_year=2021,
+        group_by="purpose",
+    )
+
+    # Get the spending values for bilateral disbursements by sector
+    bilateral_spending_broad = get_bilateral_disbursements_by_sector(
+        start_year=2015,
+        end_year=2022,
+        prices="constant",
+        base_year=2021,
         group_by="broad_sector",
     )
+
+    bilateral_spending_purpose = get_bilateral_disbursements_by_sector(
+        start_year=2015,
+        end_year=2022,
+        prices="constant",
+        base_year=2021,
+        group_by="purpose",
+    )
+
+    shares_broad.to_csv(r'../output/shares_broad.csv', index=False)
+    imputed_spending_broad.to_csv(r'../output/imputed_spending_broad.csv', index=False)
+    bilateral_spending_broad.to_csv(r'../output/bilateral_spending_broad.csv', index=False)
+
+    shares_purpose.to_csv(r'../output/shares_purpose.csv', index=False)
+    imputed_spending_purpose.to_csv(r'../output/imputed_spending_purpose.csv', index=False)
+    bilateral_spending_purpose.to_csv(r'../output/bilateral_spending_purpose.csv', index=False)
+
+
